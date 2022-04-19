@@ -10,6 +10,7 @@ def CreateDataset(opt):
     elif opt.dataset_mode == 'classification':
         from data.classification_data import ClassificationData
         dataset = ClassificationData(opt)
+    # TODO 增加opt.dataset_mode == 'modal'，此时选用ModalData(opt)创建dataset
     return dataset
 
 

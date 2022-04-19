@@ -121,6 +121,7 @@ class ClassifierModel:
             correct = pred.eq(labels).sum()
         elif self.opt.dataset_mode == 'segmentation':
             correct = seg_accuracy(pred, self.soft_label, self.mesh)
+        # TODO self.opt.dataset_mode == 'modal'
         return correct
 
     def export_segmentation(self, pred_seg):
