@@ -24,7 +24,7 @@ class ModalData(BaseDataset):
         self.paths = self.make_dataset(self.dir)
 
         # eigen_paths = [eigen_path_of_each_mesh] e.g. ['/sherc_modal/eigen/T0']
-        self.eigen_paths = self.get_eigen_paths(self.paths, os.path.join(opt.dataroot, 'eigen'))
+        self.paths, self.eigen_paths = self.get_eigen_paths(self.paths, os.path.join(opt.dataroot, 'eigen'))
 
         # TODO what is classes? is it nessessary?
         self.classes = [1]
@@ -67,9 +67,12 @@ class ModalData(BaseDataset):
         for path in paths:
             data_name = os.path.splitext(os.path.basename(path))[0]
             eigen = os.path.join(eigen_dir, data_name)
-            assert(os.path.isdir(eigen))
+            # assert os.path.isdir(eigen) , '%s is not a valid directory' % eigen
+            if(not os.path.isdir(eigen)):
+                paths.remove(path)
+                continue
             eigen_paths.append(eigen)
-        return eigen_paths
+        return paths, eigen_paths
 
     @staticmethod
     def make_dataset(path):
@@ -86,6 +89,6 @@ class ModalData(BaseDataset):
 def read_label(label_dir):
     # label_dir = 'shrec/eigen/T0'
     # label_file = 'shrec/eigen/T0/label.npy'
-    label_file = os.path.join(label_dir, 'label.npy')
+    label_file = os.path.join(label_dir, 'eigen.npz')
     label = np.load(label_file)
-    return label
+    return label['evals']
