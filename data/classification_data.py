@@ -12,8 +12,12 @@ class ClassificationData(BaseDataset):
         self.device = torch.device('cuda:{}'.format(opt.gpu_ids[0])) if opt.gpu_ids else torch.device('cpu')
         self.root = opt.dataroot
         self.dir = os.path.join(opt.dataroot)
+        
         self.classes, self.class_to_idx = self.find_classes(self.dir)
+
+        # paths = [(mesh_full_path, class_label)]
         self.paths = self.make_dataset_by_class(self.dir, self.class_to_idx, opt.phase)
+        
         self.nclasses = len(self.classes)
         self.size = len(self.paths)
         self.get_mean_std()

@@ -1,3 +1,4 @@
+from data.modal_data import ModalData
 import torch.utils.data
 from data.base_dataset import collate_fn
 
@@ -11,6 +12,8 @@ def CreateDataset(opt):
         from data.classification_data import ClassificationData
         dataset = ClassificationData(opt)
     # TODO 增加opt.dataset_mode == 'modal'，此时选用ModalData(opt)创建dataset
+    elif opt.dataset_mode == 'modal':
+        dataset = ModalData(opt)
     return dataset
 
 

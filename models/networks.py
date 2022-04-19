@@ -116,6 +116,8 @@ def define_loss(opt):
     elif opt.dataset_mode == 'segmentation':
         loss = torch.nn.CrossEntropyLoss(ignore_index=-1)
     # TODO modal loss
+    elif opt.dataset_mode == 'modal':
+        loss = torch.nn.CrossEntropyLoss()
     return loss
 
 ##############################################################################
