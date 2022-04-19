@@ -10,5 +10,5 @@ dependencies:
   - matplotlib=3.0.3
   - pip 
   - pip:
-    - git+https://github.com/lanpa/tensorboardX.git
+    # - git+https://github.com/lanpa/tensorboardX.git
     - pytest==5.1.1
